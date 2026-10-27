@@ -1,0 +1,188 @@
+=== checksec ===
+RELRO:      Partial RELRO
+Stack:      No canary found
+NX:         NX enabled
+PIE:        No PIE (0x400000)
+SHSTK:      Enabled
+IBT:        Enabled
+Stripped:   No
+Debuginfo:  Yes
+
+=== symbol table (.text 範圍) ===
+0x401104 read
+0x401104 plt.read
+0x401114 execve
+0x401114 plt.execve
+0x401124 strcmp
+0x401124 plt.strcmp
+0x401134 getchar
+0x401134 plt.getchar
+0x401144 setvbuf
+0x401144 plt.setvbuf
+0x401154 __isoc99_scanf
+0x401154 plt.__isoc99_scanf
+0x401164 exit
+0x401164 plt.exit
+0x40116c plt.temari_is_dieting.c
+0x401170 _start
+0x4011a0 _dl_relocate_static_pie
+0x4011b0 deregister_tm_clones
+0x4011e0 register_tm_clones
+0x401220 __do_global_dtors_aux
+0x401250 frame_dummy
+0x401256 init
+0x4012bb caught
+0x4012dc luna_say_maybe
+0x40130f to_ulong
+0x401326 main
+0x4014b4 _fini
+
+--- caught @ 0x4012bb ---
+0x4012bb: endbr64 
+0x4012bf: push rbp
+0x4012c0: mov rbp, rsp
+0x4012c3: lea rax, [rip + 0xd3e]
+0x4012ca: mov rdi, rax
+0x4012cd: call 0x4010d0
+0x4012d2: mov edi, 0
+0x4012d7: call 0x401160
+
+--- luna_say_maybe @ 0x4012dc ---
+0x4012dc: endbr64 
+0x4012e0: push rbp
+0x4012e1: mov rbp, rsp
+0x4012e4: lea rax, [rip + 0xd55]
+0x4012eb: mov rdi, rax
+0x4012ee: call 0x4010d0
+0x4012f3: mov edx, 0
+0x4012f8: mov esi, 0
+0x4012fd: lea rax, [rip + 0xd7f]
+0x401304: mov rdi, rax
+0x401307: call 0x401110
+0x40130c: nop 
+0x40130d: pop rbp
+0x40130e: ret 
+
+--- to_ulong @ 0x40130f ---
+0x40130f: endbr64 
+0x401313: push rbp
+0x401314: mov rbp, rsp
+0x401317: mov dword ptr [rbp - 0x14], edi
+0x40131a: mov eax, dword ptr [rbp - 0x14]
+0x40131d: mov byte ptr [rbp - 1], al
+0x401320: movzx eax, byte ptr [rbp - 1]
+0x401324: pop rbp
+0x401325: ret 
+
+--- main @ 0x401326 ---
+0x401326: endbr64 
+0x40132a: push rbp
+0x40132b: mov rbp, rsp
+0x40132e: sub rsp, 0x60
+0x401332: call 0x401256
+0x401337: lea rax, [rip + 0xd4d]
+0x40133e: mov rdi, rax
+0x401341: call 0x4010d0
+0x401346: lea rax, [rip + 0xd53]
+0x40134d: mov rdi, rax
+0x401350: call 0x4010d0
+0x401355: lea rax, [rip + 0xdbc]
+0x40135c: mov rdi, rax
+0x40135f: call 0x4010d0
+0x401364: lea rax, [rip + 0xde5]
+0x40136b: mov rdi, rax
+0x40136e: mov eax, 0
+0x401373: call 0x4010e0
+0x401378: lea rax, [rbp - 0x20]
+0x40137c: mov edx, 0x1f
+0x401381: mov rsi, rax
+0x401384: mov edi, 0
+0x401389: call 0x401100
+0x40138e: test rax, rax
+0x401391: jg 0x40139d
+0x401393: mov edi, 1
+0x401398: call 0x401160
+0x40139d: mov byte ptr [rbp - 1], 0
+0x4013a1: lea rax, [rbp - 0x20]
+0x4013a5: lea rdx, [rip + 0xdad]
+0x4013ac: mov rsi, rdx
+0x4013af: mov rdi, rax
+0x4013b2: call 0x4010f0
+0x4013b7: mov byte ptr [rbp + rax - 0x20], 0
+0x4013bc: lea rax, [rbp - 0x20]
+0x4013c0: lea rdx, [rip + 0xd94]
+0x4013c7: mov rsi, rdx
+0x4013ca: mov rdi, rax
+0x4013cd: call 0x401120
+0x4013d2: test eax, eax
+0x4013d4: je 0x4013db
+0x4013d6: call 0x4012bb
+0x4013db: lea rax, [rip + 0xd86]
+0x4013e2: mov rdi, rax
+0x4013e5: call 0x4010d0
+0x4013ea: lea rax, [rip + 0xdb7]
+0x4013f1: mov rdi, rax
+0x4013f4: call 0x4010d0
+0x4013f9: lea rax, [rip + 0xdd0]
+0x401400: mov rdi, rax
+0x401403: mov eax, 0
+0x401408: call 0x4010e0
+0x40140d: lea rax, [rbp - 0x54]
+0x401411: mov rsi, rax
+0x401414: lea rax, [rip + 0xdde]
+0x40141b: mov rdi, rax
+0x40141e: mov eax, 0
+0x401423: call 0x401150
+0x401428: cmp eax, 1
+0x40142b: je 0x401446
+0x40142d: lea rax, [rip + 0xdcc]
+0x401434: mov rdi, rax
+0x401437: call 0x4010d0
+0x40143c: mov edi, 1
+0x401441: call 0x401160
+0x401446: mov eax, dword ptr [rbp - 0x54]
+0x401449: cmp eax, 0x10
+0x40144c: jle 0x401467
+0x40144e: lea rax, [rip + 0xdd3]
+0x401455: mov rdi, rax
+0x401458: call 0x4010d0
+0x40145d: mov edi, 1
+0x401462: call 0x401160
+0x401467: call 0x401130
+0x40146c: lea rax, [rip + 0xde5]
+0x401473: mov rdi, rax
+0x401476: mov eax, 0
+0x40147b: call 0x4010e0
+0x401480: mov eax, dword ptr [rbp - 0x54]
+0x401483: mov edi, eax
+0x401485: call 0x40130f
+0x40148a: mov rdx, rax
+0x40148d: lea rax, [rbp - 0x50]
+0x401491: mov rsi, rax
+0x401494: mov edi, 0
+0x401499: call 0x401100
+0x40149e: lea rax, [rip + 0xdfa]
+0x4014a5: mov rdi, rax
+0x4014a8: call 0x4010d0
+0x4014ad: mov eax, 0
+0x4014b2: leave 
+0x4014b3: ret 
+
+=== 字串 (lea rax,[rip+off] 算出來的實際位址) ===
+caught_msg 0x402008 -> b'Producer caught Temari ordering unhealthy food!!!'
+luna_banner 0x402040 -> b"Ordering successfully!!! But Temari's weight is getting heavier..."
+luna_bin_sh 0x402083 -> b'/bin/sh'
+main_banner1 0x40208b -> b'Temari is dieting...'
+main_banner2 0x4020a0 -> b'But Temari tries to scam her producer she orders healthy food to herself and eats her favorite tonkatsu at night!!!'
+main_banner3 0x402118 -> b'Producer: Tsukimura san, what did you order for dinner?'
+main_prompt1 0x402153 -> b'ari: '
+newline_sep 0x402159 -> b'\n'
+secret_string 0x40215b -> b'salad'
+main_banner4 0x402168 -> b'Nice! Tsukimura san is a real idol! (Producer walked away)'
+main_banner5 0x4021a8 -> b'Temari is ordering tonkatsu now...'
+main_prompt2 0x4021d0 -> b'How much tonkatsu should Temari order?: '
+scanf_fmt 0x4021f9 -> b'%d'
+err_scanf 0x402200 -> b'Something wrong while ordering...'
+err_toolarge 0x402228 -> b'Producer caught Temari ordering extra food!!!'
+main_prompt3 0x402258 -> b'Write down the correct tonkatsu name to help Temari finish her order: '
+main_final 0x40229f -> b'Ehh? No tonkatsu?'

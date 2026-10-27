@@ -1,0 +1,158 @@
+=== symbol table (.text 範圍) ===
+0x401000 _init
+0x4010a4 puts
+0x4010a4 plt.puts
+0x4010b4 strlen
+0x4010b4 plt.strlen
+0x4010c4 execve
+0x4010c4 plt.execve
+0x4010d4 strcmp
+0x4010d4 plt.strcmp
+0x4010e4 setvbuf
+0x4010e4 plt.setvbuf
+0x4010f4 __isoc99_scanf
+0x4010f4 plt.__isoc99_scanf
+0x401104 exit
+0x401104 plt.exit
+0x40110c plt.cheer_for_kotone.c
+0x401110 _start
+0x401140 _dl_relocate_static_pie
+0x401150 deregister_tm_clones
+0x401180 register_tm_clones
+0x4011c0 __do_global_dtors_aux
+0x4011f0 frame_dummy
+0x4011f6 init
+0x40125b shukishukidaishuki
+0x40127f main
+0x401360 _fini
+
+--- shukishukidaishuki @ 0x40125b ---
+0x40125b: endbr64 
+0x40125f: push rbp
+0x401260: mov rbp, rsp
+0x401263: mov edx, 0
+0x401268: mov esi, 0
+0x40126d: lea rax, [rip + 0xd94]
+0x401274: mov rdi, rax
+0x401277: call 0x4010c0
+0x40127c: nop 
+0x40127d: pop rbp
+0x40127e: ret 
+0x40127f: endbr64 
+0x401283: push rbp
+0x401284: mov rbp, rsp
+0x401287: sub rsp, 0x20
+0x40128b: mov eax, 0
+0x401290: call 0x4011f6
+0x401295: lea rax, [rip + 0xd74]
+0x40129c: mov rdi, rax
+0x40129f: call 0x4010a0
+0x4012a4: lea rax, [rip + 0xd85]
+0x4012ab: mov rdi, rax
+0x4012ae: call 0x4010a0
+0x4012b3: lea rax, [rbp - 0x20]
+0x4012b7: mov rsi, rax
+0x4012ba: lea rax, [rip + 0xd91]
+0x4012c1: mov rdi, rax
+0x4012c4: mov eax, 0
+0x4012c9: call 0x4010f0
+0x4012ce: lea rax, [rbp - 0x20]
+0x4012d2: mov rdi, rax
+0x4012d5: call 0x4010b0
+0x4012da: cmp rax, 0x20
+0x4012de: jbe 0x401317
+0x4012e0: lea rax, [rip + 0xd71]
+0x4012e7: mov rdi, rax
+0x4012ea: call 0x4010a0
+0x4012ef: lea rax, [rip + 0x13fe]
+0x4012f6: mov rdi, rax
+0x4012f9: call 0x4010a0
+0x4012fe: lea rax, [rip + 0x1405]
+0x401305: mov rdi, rax
+0x401308: call 0x4010a0
+0x40130d: mov edi, 0
+0x401312: call 0x401100
+0x401317: lea rax, [rbp - 0x20]
+0x40131b: lea rdx, [rip + 0x13f6]
+0x401322: mov rsi, rdx
+0x401325: mov rdi, rax
+0x401328: call 0x4010d0
+0x40132d: test eax, eax
+0x40132f: je 0x401359
+0x401331: lea rax, [rip + 0x13f3]
+0x401338: mov rdi, rax
+0x40133b: call 0x4010a0
+0x401340: lea rax, [rip + 0x1401]
+0x401347: mov rdi, rax
+0x40134a: call 0x4010a0
+0x40134f: mov edi, 0
+0x401354: call 0x401100
+0x401359: mov eax, 0
+0x40135e: leave 
+0x40135f: ret 
+
+--- main @ 0x40127f ---
+0x40127f: endbr64 
+0x401283: push rbp
+0x401284: mov rbp, rsp
+0x401287: sub rsp, 0x20
+0x40128b: mov eax, 0
+0x401290: call 0x4011f6
+0x401295: lea rax, [rip + 0xd74]
+0x40129c: mov rdi, rax
+0x40129f: call 0x4010a0
+0x4012a4: lea rax, [rip + 0xd85]
+0x4012ab: mov rdi, rax
+0x4012ae: call 0x4010a0
+0x4012b3: lea rax, [rbp - 0x20]
+0x4012b7: mov rsi, rax
+0x4012ba: lea rax, [rip + 0xd91]
+0x4012c1: mov rdi, rax
+0x4012c4: mov eax, 0
+0x4012c9: call 0x4010f0
+0x4012ce: lea rax, [rbp - 0x20]
+0x4012d2: mov rdi, rax
+0x4012d5: call 0x4010b0
+0x4012da: cmp rax, 0x20
+0x4012de: jbe 0x401317
+0x4012e0: lea rax, [rip + 0xd71]
+0x4012e7: mov rdi, rax
+0x4012ea: call 0x4010a0
+0x4012ef: lea rax, [rip + 0x13fe]
+0x4012f6: mov rdi, rax
+0x4012f9: call 0x4010a0
+0x4012fe: lea rax, [rip + 0x1405]
+0x401305: mov rdi, rax
+0x401308: call 0x4010a0
+0x40130d: mov edi, 0
+0x401312: call 0x401100
+0x401317: lea rax, [rbp - 0x20]
+0x40131b: lea rdx, [rip + 0x13f6]
+0x401322: mov rsi, rdx
+0x401325: mov rdi, rax
+0x401328: call 0x4010d0
+0x40132d: test eax, eax
+0x40132f: je 0x401359
+0x401331: lea rax, [rip + 0x13f3]
+0x401338: mov rdi, rax
+0x40133b: call 0x4010a0
+0x401340: lea rax, [rip + 0x1401]
+0x401347: mov rdi, rax
+0x40134a: call 0x4010a0
+0x40134f: mov edi, 0
+0x401354: call 0x401100
+0x401359: mov eax, 0
+0x40135e: leave 
+0x40135f: ret 
+
+=== 字串 (lea rax,[rip+off] 算出來的實際位址) ===
+prompt1 0x402010 -> b'Kotone is lack of confidence.'
+prompt2 0x402030 -> b'Cheer her up by sending messages!'
+scanf_fmt 0x402052 -> b'%s'
+errmsg_len1 0x402058 -> b'\xe2\xa1\xb4\xe2\xa0\x92\xe2\xa3\x84\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2\xa0\x80\xe2'
+errmsg_len2 0x4026f4 -> b'\nBuffer Over Flow !!!'
+errmsg_len3 0x40270a -> b'Try again!!!\n'
+secret_string 0x402718 -> b'shukishukidaishuki'
+errmsg_cmp1 0x40272b -> b'Your cheering is not enough!'
+errmsg_cmp2 0x402748 -> b'More and more shuki...'
+shuki_bin_sh 0x402008 -> b'/bin/sh'

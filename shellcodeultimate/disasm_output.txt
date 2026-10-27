@@ -1,0 +1,162 @@
+=== checksec ===
+RELRO:      Partial RELRO
+Stack:      No canary found
+NX:         NX unknown - GNU_STACK missing
+PIE:        No PIE (0x400000)
+Stack:      Executable
+RWX:        Has RWX segments
+SHSTK:      Enabled
+IBT:        Enabled
+Stripped:   No
+
+=== symbol table ===
+0x401120 register_tm_clones
+0x401160 __do_global_dtors_aux
+0x401190 frame_dummy
+0x401196 init
+0x4011fb main
+0x4013a4 _fini
+
+--- main @ 0x4011fb ---
+0x4011fb: endbr64 
+0x4011ff: push rbp
+0x401200: mov rbp, rsp
+0x401203: sub rsp, 0x90
+0x40120a: mov eax, 0
+0x40120f: call 0x401196
+0x401214: lea rax, [rip + 0xded]
+0x40121b: mov rdi, rax
+0x40121e: call 0x401070
+0x401223: lea rax, [rip + 0xe0e]
+0x40122a: mov rdi, rax
+0x40122d: call 0x401070
+0x401232: lea rax, [rbp - 0x90]
+0x401239: mov edx, 0x78
+0x40123e: mov rsi, rax
+0x401241: mov edi, 0
+0x401246: call 0x401080
+0x40124b: mov dword ptr [rbp - 4], 0
+0x401252: jmp 0x40130d
+0x401257: mov eax, dword ptr [rbp - 4]
+0x40125a: cdqe 
+0x40125c: movzx eax, byte ptr [rbp + rax - 0x90]
+0x401264: cmp al, 0x90
+0x401266: jne 0x401281
+0x401268: lea rax, [rip + 0xdf9]
+0x40126f: mov rdi, rax
+0x401272: call 0x401070
+0x401277: mov edi, 0
+0x40127c: call 0x4010a0
+0x401281: cmp dword ptr [rbp - 4], 0x76
+0x401285: jg 0x4012c5
+0x401287: mov eax, dword ptr [rbp - 4]
+0x40128a: cdqe 
+0x40128c: movzx eax, byte ptr [rbp + rax - 0x90]
+0x401294: cmp al, 0xf
+0x401296: jne 0x4012c5
+0x401298: mov eax, dword ptr [rbp - 4]
+0x40129b: add eax, 1
+0x40129e: cdqe 
+0x4012a0: movzx eax, byte ptr [rbp + rax - 0x90]
+0x4012a8: cmp al, 5
+0x4012aa: jne 0x4012c5
+0x4012ac: lea rax, [rip + 0xddd]
+0x4012b3: mov rdi, rax
+0x4012b6: call 0x401070
+0x4012bb: mov edi, 0
+0x4012c0: call 0x4010a0
+0x4012c5: cmp dword ptr [rbp - 4], 0x76
+0x4012c9: jg 0x401309
+0x4012cb: mov eax, dword ptr [rbp - 4]
+0x4012ce: cdqe 
+0x4012d0: movzx eax, byte ptr [rbp + rax - 0x90]
+0x4012d8: cmp al, 0xcd
+0x4012da: jne 0x401309
+0x4012dc: mov eax, dword ptr [rbp - 4]
+0x4012df: add eax, 1
+0x4012e2: cdqe 
+0x4012e4: movzx eax, byte ptr [rbp + rax - 0x90]
+0x4012ec: cmp al, 0x80
+0x4012ee: jne 0x401309
+0x4012f0: lea rax, [rip + 0xdc1]
+0x4012f7: mov rdi, rax
+0x4012fa: call 0x401070
+0x4012ff: mov edi, 0
+0x401304: call 0x4010a0
+0x401309: add dword ptr [rbp - 4], 1
+0x40130d: cmp dword ptr [rbp - 4], 0x77
+0x401311: jle 0x401257
+0x401317: mov dword ptr [rbp - 8], 0
+0x40131e: jmp 0x401381
+0x401320: mov edx, dword ptr [rbp - 8]
+0x401323: mov eax, edx
+0x401325: add eax, eax
+0x401327: add eax, edx
+0x401329: add eax, eax
+0x40132b: cdqe 
+0x40132d: movzx eax, byte ptr [rbp + rax - 0x90]
+0x401335: cmp al, 0xc
+0x401337: jne 0x401355
+0x401339: mov edx, dword ptr [rbp - 8]
+0x40133c: mov eax, edx
+0x40133e: add eax, eax
+0x401340: add eax, edx
+0x401342: add eax, eax
+0x401344: add eax, 1
+0x401347: cdqe 
+0x401349: movzx eax, byte ptr [rbp + rax - 0x90]
+0x401351: cmp al, 0x87
+0x401353: je 0x40137d
+0x401355: lea rax, [rip + 0xd84]
+0x40135c: mov rdi, rax
+0x40135f: call 0x401070
+0x401364: lea rax, [rip + 0xda0]
+0x40136b: mov rdi, rax
+0x40136e: call 0x401070
+0x401373: mov edi, 0
+0x401378: call 0x4010a0
+0x40137d: add dword ptr [rbp - 8], 1
+0x401381: cmp dword ptr [rbp - 8], 9
+0x401385: jle 0x401320
+0x401387: lea rax, [rbp - 0x90]
+0x40138e: mov qword ptr [rbp - 0x10], rax
+0x401392: mov rdx, qword ptr [rbp - 0x10]
+0x401396: mov eax, 0
+0x40139b: call rdx
+0x40139d: mov eax, 0
+0x4013a2: leave 
+0x4013a3: ret 
+
+=== 字串 ===
+banner 0x402008 -> b'Try to input something in this buffer again!!!'
+banner2 0x402038 -> b'There are obstacles that need to be overcome ~'
+err_nop 0x402068 -> b"Cheating ! You can't input '0x90' !!"
+err_syscall 0x402090 -> b'Syscall is not allowed directly!'
+err_int80 0x4020b8 -> b'int 0x80 is not allowed directly!'
+err_marker 0x4020e0 -> b'Someting wrong ! Please check your input !'
+err_marker2 0x40210b -> b'Try again!!!'
+
+=== main() 的過濾邏輯整理（手動從上面反組譯讀出來）===
+
+char buf[0x90];                       // 144 bytes
+read(0, buf, 0x78);                   // 讀 120 bytes，buf 夠大，沒有 overflow
+
+// 第一層過濾：掃過全部 120 bytes
+for (i = 0; i <= 0x77; i++) {
+    if (buf[i] == 0x90)                       exit_with("no NOP sled!!!");      // 禁止 NOP (0x90)
+    if (i <= 0x76 && buf[i]==0x0f && buf[i+1]==0x05)
+                                               exit_with("no syscall!!!");      // 禁止 0f 05 (syscall)
+    if (i <= 0x76 && buf[i]==0xcd && buf[i+1]==0x80)
+                                               exit_with("no int 0x80!!!");     // 禁止 cd 80 (int 0x80)
+}
+
+// 第二層過濾：每隔 6 bytes 檢查一組「魔法標記」
+for (j = 0; j <= 9; j++) {
+    idx = 6 * j;                              // 0, 6, 12, ..., 54
+    if (!(buf[idx] == 0x0c && buf[idx+1] == 0x87))
+                                               exit_with("missing marker!!!"); // 強制要求 or al,0x87
+}
+
+void (*fp)() = buf;
+fp();                                           // 兩層過濾都通過才會執行 shellcode
+

@@ -1,0 +1,46 @@
+=== checksec ===
+RELRO:      Partial RELRO
+Stack:      No canary found
+NX:         NX unknown - GNU_STACK missing
+PIE:        No PIE (0x400000)
+Stack:      Executable
+RWX:        Has RWX segments
+SHSTK:      Enabled
+IBT:        Enabled
+Stripped:   No
+
+=== symbol table (.text 範圍) ===
+0x401100 register_tm_clones
+0x401140 __do_global_dtors_aux
+0x401170 frame_dummy
+0x401176 init
+0x4011db main
+0x40123c _fini
+
+--- main @ 0x4011db ---
+0x4011db: endbr64 
+0x4011df: push rbp
+0x4011e0: mov rbp, rsp
+0x4011e3: sub rsp, 0xd0
+0x4011ea: mov eax, 0
+0x4011ef: call 0x401176
+0x4011f4: lea rax, [rip + 0xe0d]
+0x4011fb: mov rdi, rax
+0x4011fe: call 0x401060
+0x401203: lea rax, [rbp - 0xd0]
+0x40120a: mov edx, 0xc8
+0x40120f: mov rsi, rax
+0x401212: mov edi, 0
+0x401217: call 0x401070
+0x40121c: lea rax, [rbp - 0xd0]
+0x401223: mov qword ptr [rbp - 8], rax
+0x401227: mov rdx, qword ptr [rbp - 8]
+0x40122b: mov eax, 0
+0x401230: call rdx
+0x401232: mov eax, 0
+0x401237: leave 
+0x401238: ret 
+0x401239: add byte ptr [rax], al
+
+=== 字串 ===
+banner 0x402008 -> b'Try to input something in this buffer!!!'
